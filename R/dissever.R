@@ -1,9 +1,17 @@
-# library(raster)
-# library(plyr)
-# library(dplyr)
-# library(caret)
-# library(boot)
-# library(viridis)
+#' @include dissever-package.R
+
+# Horrible hack to keep CRAN happy and suppress NOTES about
+# parts of the code that use non-standard evaluation.
+# See:
+# http://stackoverflow.com/questions/9439256/how-can-i-handle-r-cmd-check-no-visible-binding-for-global-variable-notes-when
+# https://github.com/smbache/magrittr/issues/29
+utils::globalVariables(c(
+  "cell",
+  "diss",
+  ".",
+  "matches",
+  "i"
+))
 
 # simple wrapper around raster::as.data.frame that
 # handles categorical data columns correctly
