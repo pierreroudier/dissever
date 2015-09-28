@@ -31,7 +31,7 @@ NULL
 
 #' @name edgeTarget_C
 #' @docType data
-#' @aliases edgeTarget_C
+#' @aliases edgeTarget_C target
 #' @title Subset of the 1-km resolution soil carbon map of the Edgeroi District, NSW
 #' @description A \code{RasterLayer} of a subset of the 1km SOC map for the Edgeroi District, NSW. It portrays soil carbon stock for the 0-30cm depth interval only.
 #' @usage data(edgeTarget_C)
