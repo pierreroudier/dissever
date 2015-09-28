@@ -5,9 +5,9 @@
 #'@author Brendan Malone (brendan.malone@@sydney.edu.au);
 NULL
 
-#' @name edgeroi_covariates
+#' @name edgeGrids
 #' @docType data
-#' @aliases edgeroi-covariates, edgeGrids
+#' @aliases edgeGrids
 #' @title Selected subset of environmental covariates for the Edgeroi District, NSW
 #' @description A \code{RasterStack} of selected environmental covariates for a small area of the Edgeroi district in NSW, Australia.
 #' @usage data(edgeGrids)
@@ -29,9 +29,9 @@ NULL
 #'
 NULL
 
-#' @name edgeroi_carbon
+#' @name edgeTarget_C
 #' @docType data
-#' @aliases edgeroi SOC 1km, target
+#' @aliases edgeTarget_C
 #' @title Subset of the 1-km resolution soil carbon map of the Edgeroi District, NSW
 #' @description A \code{RasterLayer} of a subset of the 1km SOC map for the Edgeroi District, NSW. It portrays soil carbon stock for the 0-30cm depth interval only.
 #' @usage data(edgeTarget_C)
