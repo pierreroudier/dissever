@@ -6,19 +6,24 @@ Date: 2015-09-28
 Authors@R: c(
     person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "cre"),
     person("Roudier", "Pierre", email = "roudierp@landcareresearch.co.nz", role = "aut"))
-Description: Performs spatial downscaling of coarse grid mapping to fine grid mapping
-    using predictive covariates and a model fitted using the caret package.
+Description: Performs spatial downscaling of coarse grid mapping to fine grid
+    mapping using predictive covariates and a model fitted using the caret
+    package.
 URL: https://github.com/pierreroudier/dissever
 BugReports: https://github.com/pierreroudier/dissever/issues
 License: GPL-2
 LazyData: TRUE
 Imports:
-  methods,
-  caret,
-  raster,
-  plyr,
-  dplyr,
-  foreach,
-  boot,
-  magrittr,
-  viridis
+    methods,
+    caret,
+    sp,
+    raster,
+    plyr,
+    dplyr,
+    foreach,
+    boot,
+    magrittr,
+    viridis
+Collate:
+    'dissever-package.R'
+    'dissever.R'
