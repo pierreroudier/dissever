@@ -1,6 +1,8 @@
 import(caret)
 import(methods)
 
+importFrom(sp, coordinates)
+
 importFrom(raster, as.data.frame)
 importFrom(raster, is.factor)
 importFrom(raster, extract)
@@ -21,6 +23,7 @@ importFrom(dplyr, summarise)
 
 importFrom(foreach, getDoParWorkers)
 importFrom(foreach, foreach)
+importFrom(foreach, "%dopar%")
 
 importFrom(boot, boot)
 
