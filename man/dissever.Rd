@@ -3,7 +3,7 @@
 \docType{methods}
 \name{dissever}
 \alias{dissever}
-\alias{dissever,RasterLayer-method}
+\alias{dissever,RasterLayer,RasterStack-method}
 \title{Spatial downscaling}
 \usage{
 \S4method{dissever}{RasterLayer,RasterStack}(coarse, fine, method = "rf",
