@@ -427,6 +427,20 @@ if(!isGeneric("dissever")) {
 #' @docType methods
 #' @author Brendan Malone, Pierre Roudier
 #' @references Malone, B.P, McBratney, A.B., Minasny, B., Wheeler, I., (2011) A general method for downscaling earth resource information. Computers & Geosciences, 41: 119-125. \url{http://dx.doi.org/10.1016/j.cageo.2011.08.021}
+#' @examples
+#' # Load the Edgeroi dataset (see ?edgeroi)
+#' data(edgeroi)
+#'
+#' # Plot the Edgeroi dataset
+#' plot(edgeroi$carbon) # coarse resolution layer
+#' plot(edgeroi$predictors) # fine resolution predictors
+#'
+#' # Run dissever using a GAM
+#' res_gam <- dissever(coarse = edgeroi$carbon, fine = edgeroi$predictors, method = "gamSpline", min_iter = 5, max_iter = 10)
+#'
+#'# Plot dissever results
+#' plot(res_gam, type = 'map', main = "Dissever using GAM")
+#' plot(res_gam, type = 'perf', main = "Dissever using GAM")
 #'
 setMethod(
   'dissever',
