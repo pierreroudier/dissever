@@ -25,7 +25,8 @@ Imports:
     magrittr,
     viridis
 Suggests:
-    knitr
+    knitr,
+    rmarkdown
 Collate:
     'dissever-package.R'
     'dissever.R'
