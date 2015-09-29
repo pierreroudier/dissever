@@ -31,4 +31,11 @@ importFrom(magrittr, "%>%")
 
 importFrom(viridis, viridis)
 
+export(print.dissever)
+S3method(print, dissever)
+export(summary.dissever)
+S3method(summary, dissever)
+export(plot.dissever)
+S3method(plot, dissever)
+
 exportMethods(dissever)
