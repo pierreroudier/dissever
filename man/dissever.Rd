@@ -42,6 +42,36 @@
 \description{
 Performs spatial downscaling of coarse grid mapping to fine grid mapping using predictive covariates and a model fitted using the caret package.
 }
+\examples{
+# Load the Edgeroi dataset (see ?edgeroi)
+data(edgeroi)
+
+# Plot the Edgeroi dataset (using the raster package)
+library(raster)
+plot(edgeroi$carbon) # coarse resolution layer
+plot(edgeroi$predictors) # fine resolution predictors
+
+# Run dissever using a simple linear model.
+
+# In this instance we are subsampling heavily (p = 0.05) to keep
+# run time short
+res_lm <- dissever(
+  coarse = edgeroi$carbon,
+  fine = edgeroi$predictors,
+  method = "lm",
+  min_iter = 5, max_iter = 10,
+  p = 0.05
+)
+
+# A lot more models are available through caret:
+\dontrun{
+subset(caret::modelLookup(), forReg == TRUE, select = 'model')
+}
+
+# Plot dissever results
+plot(res_lm, type = 'map', main = "Dissever using GAM")
+plot(res_lm, type = 'perf', main = "Dissever using GAM")
+}
 \author{
 Brendan Malone, Pierre Roudier
 }

@@ -375,6 +375,15 @@ utils::globalVariables(c(
   return(res)
 }
 
+#' @name plot.dissever
+#' @title Plots a dissever result
+#' @description Plots a dissever result. Two modes are possible to visualise either the resulting map or the convergence of the disseveration.
+#' @param x object of class \code{dissever}, output from the \code{dissever} function
+#' @param type character, type of visualisation to produce. Options are "map", to produce a map of the dissevered coarse map, or "perf", to show the convergence of the RMSE during the disseveration procedure.
+#' @param ... Additional arguments passed to plot
+#' @author Pierre Roudier
+#' @examples
+#' # See ?dissever
 plot.dissever <- function(x, type = 'map', ...) {
 
   if (! type %in% c('map', 'perf')) stop('Invalid type of plot.')
@@ -393,12 +402,24 @@ plot.dissever <- function(x, type = 'map', ...) {
   }
 }
 
+#' @name print.dissever
+#' @title Prints the performance of the dissever procedure
+#' @description Prints the performance of the model used to do the dissever procedure.
+#' @param x object of class \code{dissever}, output from the \code{dissever} function
+#' #' @param ... Additional arguments passed to print
+#' @author Pierre Roudier
 print.dissever <- function(x, ...) {
   print(x$fit, ...)
 }
 
-summary.dissever <- function(x, ...) {
-  summary(x$fit, ...)
+#' @name summary.dissever
+#' @title Prints summary of the model used in the dissever procedure
+#' @description Prints summary of the model used in the dissever procedure.
+#' @param object object of class \code{dissever}, output from the \code{dissever} function
+#' #' @param ... Additional arguments passed to summary
+#' @author Pierre Roudier
+summary.dissever <- function(object, ...) {
+  summary(object$fit, ...)
 }
 
 if(!isGeneric("dissever")) {
@@ -431,16 +452,31 @@ if(!isGeneric("dissever")) {
 #' # Load the Edgeroi dataset (see ?edgeroi)
 #' data(edgeroi)
 #'
-#' # Plot the Edgeroi dataset
+#' # Plot the Edgeroi dataset (using the raster package)
+#' library(raster)
 #' plot(edgeroi$carbon) # coarse resolution layer
 #' plot(edgeroi$predictors) # fine resolution predictors
 #'
-#' # Run dissever using a GAM
-#' res_gam <- dissever(coarse = edgeroi$carbon, fine = edgeroi$predictors, method = "gamSpline", min_iter = 5, max_iter = 10)
+#' # Run dissever using a simple linear model.
 #'
-#'# Plot dissever results
-#' plot(res_gam, type = 'map', main = "Dissever using GAM")
-#' plot(res_gam, type = 'perf', main = "Dissever using GAM")
+#' # In this instance we are subsampling heavily (p = 0.05) to keep
+#' # run time short
+#' res_lm <- dissever(
+#'   coarse = edgeroi$carbon,
+#'   fine = edgeroi$predictors,
+#'   method = "lm",
+#'   min_iter = 5, max_iter = 10,
+#'   p = 0.05
+#' )
+#'
+#' # A lot more models are available through caret:
+#' \dontrun{
+#' subset(caret::modelLookup(), forReg == TRUE, select = 'model')
+#' }
+#'
+#' # Plot dissever results
+#' plot(res_lm, type = 'map', main = "Dissever using GAM")
+#' plot(res_lm, type = 'perf', main = "Dissever using GAM")
 #'
 setMethod(
   'dissever',
