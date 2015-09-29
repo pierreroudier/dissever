@@ -24,6 +24,9 @@ Imports:
     boot,
     magrittr,
     viridis
+Suggests:
+    knitr
 Collate:
     'dissever-package.R'
     'dissever.R'
+VignetteBuilder: knitr
