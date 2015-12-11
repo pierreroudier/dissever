@@ -100,7 +100,7 @@ utils::globalVariables(c(
 
 # Generates prediction intervals using bootstraping
 #
-.bootstrap_ci <- function(fit, fine_df, level = 0.95, n = 50L) {
+.bootstrap_ci <- function(fit, fine_df, level = 0.9, n = 50L) {
 
   # training data
   df <- fit$trainingData
@@ -126,17 +126,30 @@ utils::globalVariables(c(
   }, n)
 
   # generate CI estimates + mean
-  ci <- c((1 - level) / 2, 1 - (1 - level) / 2)
-  res <- data.frame(
-    lower = aaply(boot_samples$t, 2, quantile, probs = ci[1]),
-    mean = aaply(boot_samples$t, 2, mean),
-    upper = aaply(boot_samples$t, 2, quantile, probs = ci[2])
-  )
+
+  # If level is a number < 1
+  if (is.numeric(level)) {
+    ci <- c((1 - level) / 2, 1 - (1 - level) / 2)
+    res <- data.frame(
+      lower = aaply(boot_samples$t, 2, quantile, probs = ci[1]),
+      mean = aaply(boot_samples$t, 2, mean),
+      upper = aaply(boot_samples$t, 2, quantile, probs = ci[2])
+    )
+    # if level is a function
+  } else if (is.function(level)) {
+    res <- data.frame(
+      mean = aaply(boot_samples$t, 2, mean),
+      uncert = aaply(boot_samples$t, 2, level)
+    )
+    # else we throw an error
+  } else {
+    stop('Incorrect value for the "level" option.')
+  }
 
   res
 }
 
-.predict_map <- function(fit, data, split = NULL, boot = NULL) {
+.predict_map <- function(fit, data, split = NULL, boot = NULL, level = 0.9) {
   if (.has_parallel_backend()) {
     # Get number of registered workers
     n_workers <- length(unique(split))
@@ -155,7 +168,7 @@ utils::globalVariables(c(
         predict(fit, newdata = data[split == i, ])
       } else {
         # Use bootstraping to get confidence intervals
-        .bootstrap_ci(fit = fit, fine_df = data[split == i, ], level = 0.95, n = boot)
+        .bootstrap_ci(fit = fit, fine_df = data[split == i, ], level = level, n = boot)
       }
     }
   } else {
@@ -163,7 +176,7 @@ utils::globalVariables(c(
       res <- predict(fit, data)
     } else {
       # Use bootstraping to get confidence intervals
-      res <- .bootstrap_ci(fit = fit, fine_df = data, level = 0.95, n = boot)
+      res <- .bootstrap_ci(fit = fit, fine_df = data, level = level, n = boot)
     }
   }
 
@@ -179,6 +192,7 @@ utils::globalVariables(c(
     min_iter = 5,
     max_iter = 20,
     boot = NULL,
+    level = 0.9,
     tune_length = 3,
     tune_grid = .create_tune_grid(model = method, tune_length = tune_length),
     train_control_init = .default_control_init,
@@ -297,7 +311,7 @@ utils::globalVariables(c(
     if (verbose) message('| -- updating predictions')
 
     # Update dissever predictions on fine grid
-    diss_result$diss <- .predict_map(fit, fine_df, split = split_cores)
+    diss_result$diss <- .predict_map(fit, fine_df, split = split_cores, boot = NULL)
 
     # if (verbose) message('| -- averaging prediction on coarse grid')
 
@@ -358,7 +372,7 @@ utils::globalVariables(c(
   map <- rasterFromXYZ(
     data.frame(
       diss_result[, c('x', 'y')],
-      diss = .predict_map(best_model, fine_df, split = split_cores, boot = boot)
+      diss = .predict_map(best_model, fine_df, split = split_cores, boot = boot, level = level)
     ),
     res = res(fine),
     crs = projection(fine)
@@ -439,7 +453,8 @@ if(!isGeneric("dissever")) {
 #' @param thresh numeric, dissever iterations will proceed until the RMSE of the dissever model reaches this value, or until the maximum number of iterations is met (defaults to 0.01)
 #' @param min_iter numeric, minimum number of iterations (defaults to 5)
 #' @param max_iter numeric, maximum number of iterations (defaults to 20)
-#' @param  boot numeric, if not NULL (default), the number of bootstrap replicates used to derive the confidence intervals
+#' @param boot numeric, if not NULL (default), the number of bootstrap replicates used to derive the confidence intervals.
+#' @param level If this is a numeric value, it is used to derive confidence intervals using quantiles. If it is a function, it is used to derive the uncertainty using this function.
 #' @param tune_length numeric, the number of parameters to test to find the optimal parametrisation of the caret model (defaults to 3)
 #' @param tune_grid a data frame with possible tuning values
 #' @param train_control_init Control parameters for finding the optimal parameters of the caret model (see trainControl)
