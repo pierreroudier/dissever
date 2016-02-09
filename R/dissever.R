@@ -83,13 +83,36 @@ utils::globalVariables(c(
   # on computing time
   # Basically we just need to change the trainControl object to do that
 
-  fit <- train(
-    x = x,
-    y = y, # in this case train needs a vector
-    method = method,
-    trControl = control,
-    tuneGrid  = tune_grid
-  )
+  # *** Ensemble modelling ***
+#   if (length(method > 1)) {
+#     require(caretEnsemble)
+#
+#     # Create the list of caret models to fit
+#     models <- lapply(method, function(x) {
+#       caretModelSpec(method = x, tuneGrid = tune_grid)
+#     })
+#     # Use the model names to index the models in list
+#     names(models) <- method
+#
+#     # create CaretList
+#     model_list <- caretList(
+#       x = x,
+#       y = y,
+#       trControl = control,
+#       tuneList = models
+#     )
+#
+#     fit <- caretEnsemble(model_list)
+#
+#   } else {
+    fit <- train(
+      x = x,
+      y = y, # in this case train needs a vector
+      method = method,
+      trControl = control,
+      tuneGrid  = tune_grid
+    )
+  # }
 
   fit
 }
@@ -187,7 +210,7 @@ utils::globalVariables(c(
     coarse,
     fine,
     method = "rf",
-    p = 0.5,
+    p = 0.5, nmax = NULL,
     thresh = 0.01,
     min_iter = 5,
     max_iter = 20,
@@ -233,6 +256,11 @@ utils::globalVariables(c(
 
   # Sub-sample for modelling
   n_spl <- ceiling(nrow(fine_df) * p) # Number of cells to sample
+
+  if (!is.null(nmax) & nmax > 0) {
+    n_spl <- min(n_spl, nmax)
+  }
+
   id_spl <- sample(1:nrow(fine_df), size = n_spl) # sample random grid cells
 
   # Compute initial model
@@ -449,7 +477,8 @@ if(!isGeneric("dissever")) {
 #' @param coarse object of class \code{"RasterLayer"}, the coarse-resolution layer that needs to be downscaled
 #' @param fine object of class \code{"RasterStack"}, the fine-resolution stack of predictive covariates
 #' @param method a string specifying which classification or regression model to use (via the caret package). Possible values are found using names(caret::getModelInfo()).
-#' @param p numeric, proportion of the coarse map that is sampled for fitting the dissever model (between 0 and 1, defaults to 0.5)
+#' @param p numeric, proportion of the fine map that is sampled for fitting the dissever model (between 0 and 1, defaults to 0.5)
+#' @param nmax numeric maximum number of pixels selected for fitting the dissever model. It will override the number of pixels chosen by the \code{p} option if that number is over the value passed to \code{nmax}.
 #' @param thresh numeric, dissever iterations will proceed until the RMSE of the dissever model reaches this value, or until the maximum number of iterations is met (defaults to 0.01)
 #' @param min_iter numeric, minimum number of iterations (defaults to 5)
 #' @param max_iter numeric, maximum number of iterations (defaults to 20)
