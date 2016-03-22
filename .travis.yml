@@ -17,6 +17,4 @@ r_packages:
   - randomForest
   - gam
   - Cubist
-
-before_install:
-  - Rscript -e 'install.packages("nlme", lib="/home/travis/R-bin/lib/R/library/")'
+  - nlme
