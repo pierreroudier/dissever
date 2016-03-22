@@ -17,3 +17,4 @@ r_packages:
   - randomForest
   - gam
   - Cubist
+  - nlme
