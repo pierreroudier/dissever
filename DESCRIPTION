@@ -1,8 +1,8 @@
 Package: dissever
 Type: Package
 Title: Algorithm for Spatial Downscaling
-Version: 0.1-0
-Date: 2015-09-28
+Version: 0.1-1
+Date: 2016-02-10
 Authors@R: c(
     person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "cre"),
     person("Roudier", "Pierre", email = "roudierp@landcareresearch.co.nz", role = "aut"))

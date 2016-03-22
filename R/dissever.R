@@ -225,7 +225,7 @@ utils::globalVariables(c(
 
   # Stop if resolution of covariates is not higher than resolution of coarse data
   if (min(res(fine)) >= min(res(coarse))) {
-    stop('Resolution of fine data should be higer than resolution of coarse data')
+    stop('Resolution of fine data should be higher than resolution of coarse data')
   }
 
   # Store names of coarse data and fine-scale covariates
@@ -257,7 +257,7 @@ utils::globalVariables(c(
   # Sub-sample for modelling
   n_spl <- ceiling(nrow(fine_df) * p) # Number of cells to sample
 
-  if (!is.null(nmax) & nmax > 0) {
+  if (!is.null(nmax) && nmax > 0) {
     n_spl <- min(n_spl, nmax)
   }
 

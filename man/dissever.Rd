@@ -7,9 +7,10 @@
 \title{Spatial downscaling}
 \usage{
 \S4method{dissever}{RasterLayer,RasterStack}(coarse, fine, method = "rf",
-  p = 0.5, thresh = 0.01, min_iter = 5, max_iter = 20, boot = NULL,
-  tune_length = 3, tune_grid = .create_tune_grid(model = method, tune_length
-  = tune_length), train_control_init = .default_control_init,
+  p = 0.5, nmax = NULL, thresh = 0.01, min_iter = 5, max_iter = 20,
+  boot = NULL, level = 0.9, tune_length = 3,
+  tune_grid = .create_tune_grid(model = method, tune_length = tune_length),
+  train_control_init = .default_control_init,
   train_control_iter = .default_control_iter, verbose = FALSE)
 }
 \arguments{
@@ -19,7 +20,9 @@
 
 \item{method}{a string specifying which classification or regression model to use (via the caret package). Possible values are found using names(caret::getModelInfo()).}
 
-\item{p}{numeric, proportion of the coarse map that is sampled for fitting the dissever model (between 0 and 1, defaults to 0.5)}
+\item{p}{numeric, proportion of the fine map that is sampled for fitting the dissever model (between 0 and 1, defaults to 0.5)}
+
+\item{nmax}{numeric maximum number of pixels selected for fitting the dissever model. It will override the number of pixels chosen by the \code{p} option if that number is over the value passed to \code{nmax}.}
 
 \item{thresh}{numeric, dissever iterations will proceed until the RMSE of the dissever model reaches this value, or until the maximum number of iterations is met (defaults to 0.01)}
 
@@ -27,7 +30,9 @@
 
 \item{max_iter}{numeric, maximum number of iterations (defaults to 20)}
 
-\item{boot}{numeric, if not NULL (default), the number of bootstrap replicates used to derive the confidence intervals}
+\item{boot}{numeric, if not NULL (default), the number of bootstrap replicates used to derive the confidence intervals.}
+
+\item{level}{If this is a numeric value, it is used to derive confidence intervals using quantiles. If it is a function, it is used to derive the uncertainty using this function.}
 
 \item{tune_length}{numeric, the number of parameters to test to find the optimal parametrisation of the caret model (defaults to 3)}
 
