@@ -51,7 +51,7 @@ utils::globalVariables(c(
 
 .join_interpol <- function(coarse_df, fine_df, attr, by = 'cell'){
   # Nearest-neighbour interpolation as an inner SQL join
-  inner_join(fine_df, coarse_df , by = by) %>%
+  left_join(fine_df, coarse_df , by = by) %>%
     select(matches(attr))
 }
 
@@ -238,8 +238,10 @@ utils::globalVariables(c(
   names(ids_coarse) <- 'cell'
 
   # Convert coarse data to data.frame
-  coarse_df <- na.exclude(.as_data_frame_factors(coarse, xy = TRUE))
-  coarse_df$cell <- 1:nrow(coarse_df) # integer
+  coarse_df <- .as_data_frame_factors(coarse, xy = TRUE)
+  # coarse_df$cell <- 1:nrow(coarse_df) # integer
+  coarse_df[['cell']] <- as.integer(.create_lut_fine(ids_coarse, coarse))
+  coarse_df <- na.exclude(coarse_df)
 
   # Convert fine data to data.frame
   fine_df <- .as_data_frame_factors(fine, xy = TRUE)
@@ -379,7 +381,7 @@ utils::globalVariables(c(
     }
 
     # We only test improvement if more than 5 iterations
-    if (k >= min_iter) {
+    if (k >= min_iter & k >= 3) {
 
       # Computing stop criterion
       stop_criterion <- mean(
