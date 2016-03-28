@@ -450,7 +450,7 @@ plot.dissever <- function(x, type = 'map', ...) {
 #' @title Prints the performance of the dissever procedure
 #' @description Prints the performance of the model used to do the dissever procedure.
 #' @param x object of class \code{dissever}, output from the \code{dissever} function
-#' #' @param ... Additional arguments passed to print
+#' @param ... Additional arguments passed to print
 #' @author Pierre Roudier
 print.dissever <- function(x, ...) {
   print(x$fit, ...)
@@ -460,7 +460,7 @@ print.dissever <- function(x, ...) {
 #' @title Prints summary of the model used in the dissever procedure
 #' @description Prints summary of the model used in the dissever procedure.
 #' @param object object of class \code{dissever}, output from the \code{dissever} function
-#' #' @param ... Additional arguments passed to summary
+#' @param ... Additional arguments passed to summary
 #' @author Pierre Roudier
 summary.dissever <- function(object, ...) {
   summary(object$fit, ...)

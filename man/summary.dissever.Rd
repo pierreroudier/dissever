@@ -7,8 +7,9 @@
 \method{summary}{dissever}(object, ...)
 }
 \arguments{
-\item{object}{object of class \code{dissever}, output from the \code{dissever} function
-#' @param ... Additional arguments passed to summary}
+\item{object}{object of class \code{dissever}, output from the \code{dissever} function}
+
+\item{...}{Additional arguments passed to summary}
 }
 \description{
 Prints summary of the model used in the dissever procedure.

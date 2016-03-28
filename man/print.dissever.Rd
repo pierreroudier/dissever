@@ -7,8 +7,9 @@
 \method{print}{dissever}(x, ...)
 }
 \arguments{
-\item{x}{object of class \code{dissever}, output from the \code{dissever} function
-#' @param ... Additional arguments passed to print}
+\item{x}{object of class \code{dissever}, output from the \code{dissever} function}
+
+\item{...}{Additional arguments passed to print}
 }
 \description{
 Prints the performance of the model used to do the dissever procedure.
