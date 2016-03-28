@@ -1,8 +1,8 @@
 Package: dissever
 Type: Package
 Title: Algorithm for Spatial Downscaling
-Version: 0.1-1
-Date: 2016-02-10
+Version: 0.1-2
+Date: 2016-03-29
 Authors@R: c(
     person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "cre"),
     person("Roudier", "Pierre", email = "roudierp@landcareresearch.co.nz", role = "aut"))
@@ -31,3 +31,4 @@ Collate:
     'dissever-package.R'
     'dissever.R'
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1
