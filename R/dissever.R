@@ -341,7 +341,7 @@ utils::globalVariables(c(
     if (verbose) message('| -- updating predictions')
 
     # Update dissever predictions on fine grid
-    diss_result$diss <- .predict_map(fit, fine_df, split = split_cores, boot = NULL)
+    diss_result$diss <- .predict_map(fit, fine_df[, nm_covariates], split = split_cores, boot = NULL)
 
     # if (verbose) message('| -- averaging prediction on coarse grid')
 
@@ -402,7 +402,7 @@ utils::globalVariables(c(
   map <- rasterFromXYZ(
     data.frame(
       diss_result[, c('x', 'y')],
-      diss = .predict_map(best_model, fine_df, split = split_cores, boot = boot, level = level)
+      diss = .predict_map(best_model, fine_df[, nm_covariates], split = split_cores, boot = boot, level = level)
     ),
     res = res(fine),
     crs = projection(fine)
