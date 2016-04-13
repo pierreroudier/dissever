@@ -172,6 +172,24 @@ utils::globalVariables(c(
   res
 }
 
+.generate_ci <- function(object, covariates, level = 0.9, n = 50L) {
+
+  fine_df <- na.exclude(.as_data_frame_factors(covariates, xy = TRUE))
+
+  b <- .bootstrap_ci(object$fit, fine_df, level = 0.9, n = 50L)
+
+  res <- rasterFromXYZ(
+    data.frame(
+      fine_df[, 1:2],
+      b
+    ),
+    res = res(covariates),
+    crs = projection(covariates)
+  )
+
+  res
+}
+
 .predict_map <- function(fit, data, split = NULL, boot = NULL, level = 0.9) {
   if (.has_parallel_backend()) {
     # Get number of registered workers
@@ -465,6 +483,47 @@ print.dissever <- function(x, ...) {
 summary.dissever <- function(object, ...) {
   summary(object$fit, ...)
 }
+
+if(!isGeneric("generate_ci")) {
+  setGeneric("generate_ci", function(object, covariates, ...) {
+    standardGeneric("generate_ci")
+  })
+}
+
+#' @name generate_ci
+#' @aliases generate_ci,list,RasterStack-method
+#' @title Confidence intervals using bootstraping
+#' @description Generates confidence intervals of a dissever output using bootstraping
+#' @param object object of class \code{dissever}, output from the \code{dissever} function
+#' @param covariates object of class \code{"RasterStack"}, the fine-resolution stack of predictive covariates used to generate the dissever output
+#' @param level If this is a numeric value, it is used to derive confidence intervals using quantiles. If it is a function, it is used to derive the uncertainty using this function.
+#' @param n the number of bootstrap replicates used to derive the confidence intervals
+#' @docType methods
+#' @author Pierre Roudier
+#' @examples
+#' # Load the Edgeroi dataset (see ?edgeroi)
+#' data(edgeroi)
+#'
+#' # Create a dissever output
+#' diss <- dissever(
+#'   coarse = edgeroi$carbon,
+#'   fine = edgeroi$predictors,
+#'   method = "lm",
+#'   min_iter = 5, max_iter = 10,
+#'   p = 0.05
+#' )
+#'
+#' # Generate the confidence intervals
+#' \dontrun{
+#' ci <- generate_ci(diss, edgeroi$predictors, n = 5)
+#'
+#' plot(ci)
+#' }
+setMethod(
+  'generate_ci',
+  signature(object = "list", covariates = "RasterStack"),
+  .generate_ci
+)
 
 if(!isGeneric("dissever")) {
   setGeneric("dissever", function(coarse, fine, ...) {

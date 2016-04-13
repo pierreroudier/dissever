@@ -39,3 +39,4 @@ export(plot.dissever)
 S3method(plot, dissever)
 
 exportMethods(dissever)
+exportMethods(generate_ci)
