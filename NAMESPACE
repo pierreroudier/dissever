@@ -20,6 +20,7 @@ importFrom(dplyr, inner_join, left_join)
 importFrom(dplyr, select)
 importFrom(dplyr, group_by)
 importFrom(dplyr, summarise)
+importFrom(dplyr, matches)
 
 importFrom(foreach, getDoParWorkers)
 importFrom(foreach, foreach)
