@@ -1,5 +1,8 @@
 import(caret)
 import(methods)
+import(stats)
+
+importFrom("graphics", "lines", "points")
 
 importFrom(sp, coordinates)
 
