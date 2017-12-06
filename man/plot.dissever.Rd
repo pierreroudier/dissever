@@ -22,4 +22,3 @@ Plots a dissever result. Two modes are possible to visualise either the resultin
 \author{
 Pierre Roudier
 }
-

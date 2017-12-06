@@ -40,4 +40,3 @@ The raw spatial data that contributed to the creation of \code{edgeGrids} were s
  summary(edgeroi$carbon)
  summary(edgeroi$predictors)
 }
-

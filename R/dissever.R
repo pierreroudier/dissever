@@ -458,6 +458,7 @@ utils::globalVariables(c(
 
 #' @name plot.dissever
 #' @title Plots a dissever result
+#' @method plot dissever
 #' @description Plots a dissever result. Two modes are possible to visualise either the resulting map or the convergence of the disseveration.
 #' @param x object of class \code{dissever}, output from the \code{dissever} function
 #' @param type character, type of visualisation to produce. Options are "map", to produce a map of the dissevered coarse map, or "perf", to show the convergence of the RMSE during the disseveration procedure.
@@ -552,7 +553,7 @@ if(!isGeneric("dissever")) {
 
 #' @title Spatial downscaling
 #' @name dissever
-#' @aliases dissever,RasterLayer,RasterStack-method
+#' @aliases dissever,RasterLayer,RasterStack-method dissever,RasterLayer,RasterLayer-method
 #' @description Performs spatial downscaling of coarse grid mapping to fine grid mapping using predictive covariates and a model fitted using the caret package.
 #' @param coarse object of class \code{"RasterLayer"}, the coarse-resolution layer that needs to be downscaled
 #' @param fine object of class \code{"RasterStack"}, the fine-resolution stack of predictive covariates

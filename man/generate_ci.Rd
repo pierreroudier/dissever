@@ -44,4 +44,3 @@ plot(ci)
 \author{
 Pierre Roudier
 }
-

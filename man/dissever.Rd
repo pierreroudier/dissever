@@ -4,9 +4,10 @@
 \name{dissever}
 \alias{dissever}
 \alias{dissever,RasterLayer,RasterStack-method}
+\alias{dissever,RasterLayer,RasterLayer-method}
 \title{Spatial downscaling}
 \usage{
-\S4method{dissever}{RasterLayer,RasterStack}(coarse, fine, method = "rf",
+\S4method{dissever}{RasterLayer,RasterLayer}(coarse, fine, method = "rf",
   p = 0.5, nmax = NULL, thresh = 0.01, min_iter = 5, max_iter = 20,
   boot = NULL, level = 0.9, tune_length = 3,
   tune_grid = .create_tune_grid(model = method, tune_length = tune_length),
@@ -78,10 +79,9 @@ plot(res_lm, type = 'map', main = "Dissever using GAM")
 plot(res_lm, type = 'perf', main = "Dissever using GAM")
 
 }
-\author{
-Brendan Malone, Pierre Roudier
-}
 \references{
 Malone, B.P, McBratney, A.B., Minasny, B., Wheeler, I., (2011) A general method for downscaling earth resource information. Computers & Geosciences, 41: 119-125. \url{http://dx.doi.org/10.1016/j.cageo.2011.08.021}
 }
-
+\author{
+Brendan Malone, Pierre Roudier
+}

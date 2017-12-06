@@ -12,4 +12,3 @@ Algorithm described in: [DOI: 10.1016/j.cageo.2011.08.021]
 \author{
 Brendan Malone (brendan.malone@sydney.edu.au);
 }
-

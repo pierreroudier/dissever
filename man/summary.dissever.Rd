@@ -17,4 +17,3 @@ Prints summary of the model used in the dissever procedure.
 \author{
 Pierre Roudier
 }
-

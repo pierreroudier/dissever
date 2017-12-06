@@ -17,4 +17,3 @@ Prints the performance of the model used to do the dissever procedure.
 \author{
 Pierre Roudier
 }
-
