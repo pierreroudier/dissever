@@ -17,12 +17,20 @@ utils::globalVariables(c(
 # handles categorical data columns correctly
 .as_data_frame_factors <- function(x, ...) {
 
-  # Get data.frame
-  res <- as.data.frame(x, ...)
-
   # We only need to do something if
   # there is categorical data in the stack
   if (any(is.factor(x))) {
+
+    # idx <- which(is.factor(x))
+    #
+    # lapply(idx, function(i) {
+    #   r <- x[[i]]
+    #   rat <- levels(r)[[1]]
+    #
+    # })
+
+    # Get data.frame
+    res <- as.data.frame(x, ...)
 
     # Get names of original stack
     # (not affected by bug)
@@ -30,6 +38,7 @@ utils::globalVariables(c(
 
     # Test if coordinates have been returned
     args <- list(...)
+
     if("xy" %in% names(args)) {
       xy <- args[['xy']]
     } else {
@@ -44,6 +53,8 @@ utils::globalVariables(c(
       names(res) <- nm
     }
 
+  } else {
+    res <- as.data.frame(x, ...)
   }
 
   res
@@ -105,6 +116,14 @@ utils::globalVariables(c(
 #     fit <- caretEnsemble(model_list)
 #
 #   } else {
+
+    # if there is only one layer, we need to convert the numeric vector to a one
+    # column data.frame (https://stackoverflow.com/questions/32462588/error-in-train-from-caret)
+    # See Issue #4: https://github.com/pierreroudier/dissever/issues/4
+    if (is.null(dim(x))) {
+      x <- data.frame(x)
+    }
+
     fit <- train(
       x = x,
       y = y, # in this case train needs a vector
@@ -451,7 +470,7 @@ plot.dissever <- function(x, type = 'map', ...) {
   if (! type %in% c('map', 'perf')) stop('Invalid type of plot.')
 
   if (type == 'map') {
-    plot(x$map, col = viridis(100), ...)
+    raster::plot(x$map, col = viridis(100), ...)
   } else {
     # Get number of iterations
     n_iter <- nrow(x$perf)
@@ -583,6 +602,12 @@ if(!isGeneric("dissever")) {
 #' plot(res_lm, type = 'map', main = "Dissever using GAM")
 #' plot(res_lm, type = 'perf', main = "Dissever using GAM")
 #'
+setMethod(
+  'dissever',
+  signature(coarse = "RasterLayer", fine = "RasterLayer"),
+  .dissever
+)
+
 setMethod(
   'dissever',
   signature(coarse = "RasterLayer", fine = "RasterStack"),
