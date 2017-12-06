@@ -5,7 +5,11 @@ Version: 0.2-1
 Date: 2017-12-07
 Authors@R: c(
     person("Pierre", "Roudier", email = "roudierp@landcareresearch.co.nz", role = c("cre", "aut")),
+<<<<<<< HEAD
     person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "ctb")
+=======
+    person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "ctb"),
+>>>>>>> f4654a03398242bb7be38c4e306c43f3bb8d77a2
     )
 Description: Performs spatial downscaling of coarse grid mapping to fine grid
     mapping using predictive covariates and a model fitted using the caret
