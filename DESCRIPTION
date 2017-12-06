@@ -1,11 +1,12 @@
 Package: dissever
 Type: Package
-Title: Algorithm for Spatial Downscaling
+Title: Spatial Downscaling using the Dissever Algorithm
 Version: 0.2-1
 Date: 2017-12-07
 Authors@R: c(
-    person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "cre"),
-    person("Roudier", "Pierre", email = "roudierp@landcareresearch.co.nz", role = "aut"))
+    person("Pierre", "Roudier", email = "roudierp@landcareresearch.co.nz", role = c("cre", "aut")),
+    person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "ctb")
+    )
 Description: Performs spatial downscaling of coarse grid mapping to fine grid
     mapping using predictive covariates and a model fitted using the caret
     package.
