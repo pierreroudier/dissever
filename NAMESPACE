@@ -25,6 +25,7 @@ importFrom(dplyr, select)
 importFrom(dplyr, matches)
 importFrom(dplyr, group_by)
 importFrom(dplyr, summarise)
+importFrom(dplyr, matches)
 
 importFrom(foreach, getDoParWorkers)
 importFrom(foreach, foreach)
