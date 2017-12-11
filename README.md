@@ -1,5 +1,6 @@
 [![Travis-CI Build Status](https://travis-ci.org/pierreroudier/dissever.svg?branch=master)](https://travis-ci.org/pierreroudier/dissever)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/dissever)](https://CRAN.R-project.org/package=dissever)
+[![Total_Downloads](http://cranlogs.r-pkg.org/badges/grand-total/dissever)](https://cran.r-project.org/package=dissever)
 
 # `dissever`: a method for spatial downscaling
 
