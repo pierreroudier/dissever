@@ -4,7 +4,7 @@ author: "Malone, B. and Roudier, P."
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Dissever Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
