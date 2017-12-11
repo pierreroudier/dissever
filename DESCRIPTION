@@ -11,8 +11,7 @@ Description: Spatial downscaling of coarse grid mapping to fine grid
     mapping using predictive covariates and a model fitted using the 'caret'
     package. The original dissever algorithm was published by Malone et al. 
     (2012) <doi:10.1016/j.cageo.2011.08.021>, and extended by Roudier et al.
-    (2017) <doi:10.1016/j.compag.2017.08.021>
-    
+    (2017) <doi:10.1016/j.compag.2017.08.021>.
 URL: https://github.com/pierreroudier/dissever
 BugReports: https://github.com/pierreroudier/dissever/issues
 License: GPL-2
