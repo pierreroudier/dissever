@@ -1,8 +1,8 @@
 Package: dissever
 Type: Package
 Title: Spatial Downscaling using the Dissever Algorithm
-Version: 0.2-1.9000
-Date: 2017-12-07
+Version: 0.2-2
+Date: 2018-01-15
 Authors@R: c(
     person("Pierre", "Roudier", email = "roudierp@landcareresearch.co.nz", role = c("cre", "aut")),
     person("Brendan", "Malone", email = "brendan.malone@sydney.edu.au", role = "ctb")
@@ -29,7 +29,11 @@ Imports:
     viridis
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    randomForest,
+    Cubist,
+    gam,
+    stats
 Collate:
     'dissever-package.R'
     'dissever.R'
