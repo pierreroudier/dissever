@@ -1,7 +1,7 @@
 Package: dissever
 Type: Package
 Title: Spatial Downscaling using the Dissever Algorithm
-Version: 0.2-2
+Version: 0.2-9000
 Date: 2018-01-15
 Authors@R: c(
     person("Pierre", "Roudier", email = "roudierp@landcareresearch.co.nz", role = c("cre", "aut")),
