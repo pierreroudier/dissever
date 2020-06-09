@@ -195,7 +195,7 @@ utils::globalVariables(c(
 
   fine_df <- na.exclude(.as_data_frame_factors(covariates, xy = TRUE))
 
-  b <- .bootstrap_ci(object$fit, fine_df, level = 0.9, n = 50L)
+  b <- .bootstrap_ci(object$fit, fine_df, level = level, n = 50L)
 
   res <- rasterFromXYZ(
     data.frame(
