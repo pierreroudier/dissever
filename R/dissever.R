@@ -320,7 +320,7 @@ The corresponding pixels have been removed from the downscaling process.
   if (verbose) message('Selecting best model parameters')
 
   fit <- .update_model(
-    x = fine_df[id_spl, nm_covariates],
+    x = fine_df[id_spl, nm_covariates, drop = FALSE],
     y = fine_df[id_spl, nm_coarse, drop = TRUE],
     method = method,
     control = train_control_init,
@@ -382,7 +382,7 @@ The corresponding pixels have been removed from the downscaling process.
     # id_spl <- sample(1:nrow(fine_df), size = n_spl)
 
     fit <- .update_model(
-      x = fine_df[id_spl, nm_covariates],
+      x = fine_df[id_spl, nm_covariates, drop = FALSE],
       y = diss_result[id_spl, 'diss', drop = TRUE],
       method = method,
       control = train_control_iter,
@@ -392,7 +392,7 @@ The corresponding pixels have been removed from the downscaling process.
     if (verbose) message('| -- updating predictions')
 
     # Update dissever predictions on fine grid
-    diss_result$diss <- .predict_map(fit, fine_df[, nm_covariates], split = split_cores, boot = NULL)
+    diss_result$diss <- .predict_map(fit, fine_df[, nm_covariates, drop = FALSE], split = split_cores, boot = NULL)
 
     # if (verbose) message('| -- averaging prediction on coarse grid')
 
@@ -453,7 +453,7 @@ The corresponding pixels have been removed from the downscaling process.
   map <- rasterFromXYZ(
     data.frame(
       diss_result[, c('x', 'y')],
-      diss = .predict_map(best_model, fine_df[, nm_covariates], split = split_cores, boot = boot, level = level)
+      diss = .predict_map(best_model, fine_df[, nm_covariates, drop = FALSE], split = split_cores, boot = boot, level = level)
     ),
     res = res(fine),
     crs = projection(fine)
